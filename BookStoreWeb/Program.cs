@@ -1,10 +1,17 @@
+using BookStoreWeb.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+string connectionString = builder.Configuration.GetConnectionString("Default");
+builder.Services.AddDbContext<ApplicationDbContext>
+    (
+        option => option.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString))
+    );
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
