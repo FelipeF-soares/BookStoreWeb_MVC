@@ -21,4 +21,15 @@ public class CategoryController : Controller
     {
         return View();
     }
+    [HttpPost]
+    public IActionResult Create(Category obj)
+    {
+        if(ModelState.IsValid)
+        {
+            context.Categories.Add(obj);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return View();
+    }
 }
